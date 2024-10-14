@@ -2,12 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PosgraduanteResource\Pages;
-use App\Filament\Resources\PosgraduanteResource\RelationManagers;
-use App\Models\DatosPersonale;
-use App\Models\Posgraduante;
+use App\Filament\Resources\AutorResource\Pages;
+use App\Filament\Resources\AutorResource\RelationManagers;
+use App\Models\Autor;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -15,35 +13,26 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PosgraduanteResource extends Resource
+class AutorResource extends Resource
 {
-    protected static ?string $model = Posgraduante::class;
+    protected static ?string $model = Autor::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'heroicon-m-users';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('matricula')
+                Forms\Components\Select::make('posgraduante_id')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('persona_id')
-                    ->required()
-                    ->options(DatosPersonale::all()->pluck('full_name', 'id')) // Asumiendo que tienes un método para obtener full_name
+                    ->relationship('posgraduantes', 'persona_id') // Asumiendoque quieres mostrar el nombre del profesor 
                     ->searchable()
                     ->preload(),
-
-
-
-                //->placeholder('Selecciona un profesor'),
-                /* ->createOptionForm([
-                        Forms\Components\TextInput::make('nombre')
-                            ->required()
-                            ->maxLength(255),
-                    ])
-
-                    ->required() */
+                Forms\Components\Select::make('documento_id')
+                    ->required()
+                    ->relationship('documentos', 'titulo') // Asumiendoque quieres mostrar el nombre del profesor 
+                    ->searchable()
+                    ->preload(),
             ]);
     }
 
@@ -51,12 +40,12 @@ class PosgraduanteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('matricula')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('datosPersonales.full_name') // Mostrar full_name
-                    ->label('Información Personal')
-                    ->sortable()
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('posgraduantes.matricula')
+                    ->label('Pograduante')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('documentos.titulo')
+                    ->label('Documentos')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -89,9 +78,9 @@ class PosgraduanteResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPosgraduantes::route('/'),
-            'create' => Pages\CreatePosgraduante::route('/create'),
-            'edit' => Pages\EditPosgraduante::route('/{record}/edit'),
+            'index' => Pages\ListAutors::route('/'),
+            'create' => Pages\CreateAutor::route('/create'),
+            'edit' => Pages\EditAutor::route('/{record}/edit'),
         ];
     }
 }

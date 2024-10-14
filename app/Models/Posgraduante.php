@@ -17,6 +17,11 @@ class Posgraduante extends Model
     {
         return $this->belongsTo(DatosPersonale::class, 'persona_id');
     }
+
+    public function autores()
+    {
+        return $this->hasMany(Autor::class);
+    }
     /* public function datosPersonalesfull()
     {
         return $this->belongsTo(DatosPersonale::class, 'persona_id')

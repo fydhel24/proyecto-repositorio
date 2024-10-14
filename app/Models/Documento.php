@@ -46,4 +46,14 @@ class Documento extends Model
     {
         return $this->belongsTo(RespaldoDigital::class, 'respaldo_digital_id', 'id');
     }
+
+    public function autores()
+    {
+        return $this->hasMany(Autor::class);
+    }
+
+    public function publicaciones()
+    {
+        return $this->hasMany(Publicacion::class);
+    }
 }

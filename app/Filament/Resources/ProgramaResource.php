@@ -17,7 +17,7 @@ class ProgramaResource extends Resource
 {
     protected static ?string $model = Programa::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-c-academic-cap';
 
     public static function form(Form $form): Form
     {

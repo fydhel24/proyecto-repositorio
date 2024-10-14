@@ -6,9 +6,12 @@ use App\Filament\Resources\DocumentoResource\Pages;
 use App\Filament\Resources\DocumentoResource\RelationManagers;
 use App\Models\Documento;
 use App\Models\Programa;
+use App\Models\Publicacion;
 use Closure;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,7 +22,7 @@ class DocumentoResource extends Resource
 {
     protected static ?string $model = Documento::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
     public static function form(Form $form): Form
     {
@@ -136,20 +139,57 @@ class DocumentoResource extends Resource
                 Tables\Columns\TextColumn::make('ciudad.nombre')
                     ->label('Ciudad Registro')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                /* Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: true), */
+
             ])
             ->filters([
-                //
+                //heroicon-m-arrow-up-on-square-stack
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('publicar')
+                    ->label(fn(Documento $record) => $record->publicaciones()->exists() ? 'Publicado' : 'Publicar')
+                    ->icon(fn(Documento $record) => $record->publicaciones()->exists() ? 'heroicon-o-check-circle' : 'heroicon-m-arrow-up-on-square-stack')
+                    ->action(function (Documento $record) {
+                        // Si el documento ya está publicado, no permitimos la acción
+                        if ($record->publicaciones()->exists()) {
+                            Notification::make()
+                                ->title('El documento ya ha sido publicado')
+                                ->warning()
+                                ->body('Este documento ya está publicado.')
+                                ->send();
+
+                            return;
+                        }
+
+                        // Obtén el usuario autenticado
+                        $user = Filament::auth()->user();
+
+                        // Registra la publicación en la tabla 'publicaciones'
+                        Publicacion::create([
+                            'documento_id' => $record->id,
+                            'user_id' => $user->id,
+                            'estado' => 'publicado',
+                            'fecha_publicacion' => now(),
+                        ]);
+
+                        // Mostrar notificación de éxito
+                        Notification::make()
+                            ->title('Documento publicado')
+                            ->success()
+                            ->body('El documento ha sido publicado exitosamente.')
+                            ->send();
+                    })
+                    ->requiresConfirmation()
+                    ->color(fn(Documento $record) => $record->publicaciones()->exists() ? 'gray' : 'success') // Cambia el color si ya está publicado
+                    ->disabled(fn(Documento $record) => $record->publicaciones()->exists()), // Deshabilita la acción si ya está publicado
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
