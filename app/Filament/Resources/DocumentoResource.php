@@ -150,7 +150,7 @@ class DocumentoResource extends Resource
 
             ])
             ->filters([
-                //heroicon-m-arrow-up-on-square-stack
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
