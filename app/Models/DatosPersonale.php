@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 class DatosPersonale extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'nombre',
         'paterno',
@@ -39,5 +40,8 @@ class DatosPersonale extends Model
     {
         return $this->hasMany(Posgraduante::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }
-

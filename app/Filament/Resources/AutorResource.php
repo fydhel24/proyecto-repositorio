@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AutorResource\Pages;
 use App\Filament\Resources\AutorResource\RelationManagers;
 use App\Models\Autor;
+use App\Models\Posgraduante;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -24,13 +25,16 @@ class AutorResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('posgraduante_id')
+                    ->label('Datos del Autor')
                     ->required()
-                    ->relationship('posgraduantes', 'persona_id') // Asumiendoque quieres mostrar el nombre del profesor 
+                    ->options(Posgraduante::getFullNames())
                     ->searchable()
                     ->preload(),
+
                 Forms\Components\Select::make('documento_id')
+                    ->label('Documento')
                     ->required()
-                    ->relationship('documentos', 'titulo') // Asumiendoque quieres mostrar el nombre del profesor 
+                    ->relationship('documentos', 'titulo') // Asumiendoque quieres mostrar el nombre
                     ->searchable()
                     ->preload(),
             ]);
@@ -40,8 +44,8 @@ class AutorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('posgraduantes.matricula')
-                    ->label('Pograduante')
+                Tables\Columns\TextColumn::make('posgraduantes.datosPersonales.full_name') // Accede al nombre completo
+                    ->label('Posgraduante')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('documentos.titulo')
                     ->label('Documentos')

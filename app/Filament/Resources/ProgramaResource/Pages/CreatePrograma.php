@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePrograma extends CreateRecord
 {
     protected static string $resource = ProgramaResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return ProgramaResource::getUrl('index'); // Redirige al índice
+    }
 }

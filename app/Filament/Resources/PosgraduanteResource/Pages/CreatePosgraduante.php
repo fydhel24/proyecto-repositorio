@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePosgraduante extends CreateRecord
 {
     protected static string $resource = PosgraduanteResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return PosgraduanteResource::getUrl('index'); // Redirige al índice
+    }
 }

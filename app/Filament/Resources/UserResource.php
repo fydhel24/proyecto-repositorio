@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\DatosPersonale;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -30,10 +31,17 @@ class UserResource extends Resource
                     ->required(),
                 TextInput::make('email')->label('Correo Electronico')
                     ->required()
-                    ->email(),
+                    ->email()
+                    ->unique('users', 'email'),
                 TextInput::make('password')
                     ->password()->hiddenOn('edit')
                     ->required(),
+                Forms\Components\Select::make('persona_id')
+                    ->required()
+                    ->options(DatosPersonale::all()->pluck('full_name', 'id'))
+                    ->searchable()
+                    ->preload(),
+
                 Select::make('roles')->multiple()->relationship('roles', 'name'),
             ]);
     }
@@ -45,6 +53,10 @@ class UserResource extends Resource
                 TextColumn::make('name')->label('Nombre'),
                 TextColumn::make('email')->label('Correo Electronico'),
                 TextColumn::make('email_verified_at')->label('Fecha Verificacion'),
+                Tables\Columns\TextColumn::make('datosPersonales.full_name') // Mostrar full_name
+                    ->label('Información Personal')
+                    ->sortable()
+                    ->searchable(),
                 TextColumn::make('roles.name'),
             ])
             ->filters([

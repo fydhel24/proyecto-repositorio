@@ -22,10 +22,12 @@ class Posgraduante extends Model
     {
         return $this->hasMany(Autor::class);
     }
-    /* public function datosPersonalesfull()
+    public static function getFullNames()
     {
-        return $this->belongsTo(DatosPersonale::class, 'persona_id')
-            ->select('id', 'nombre', 'paterno', 'materno')
-            ->addSelectRaw("CONCAT(nombre, ' ', paterno, ' ', materno) as full_name");
-    } */
+        return self::with('datosPersonales')
+            ->get()
+            ->mapWithKeys(function ($posgraduante) {
+                return [$posgraduante->id => $posgraduante->datosPersonales->full_name];
+            });
+    }
 }

@@ -16,4 +16,8 @@ class EditDatosPersonale extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+    protected function getRedirectUrl(): string
+    {
+        return DatosPersonaleResource::getUrl('index'); // Redirige al índice
+    }
 }

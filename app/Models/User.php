@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'persona_id',
     ];
 
     /**
@@ -49,5 +50,9 @@ class User extends Authenticatable
     public function publicaciones()
     {
         return $this->hasMany(Publicacion::class);
+    }
+    public function datosPersonales()
+    {
+        return $this->belongsTo(DatosPersonale::class, 'persona_id');
     }
 }

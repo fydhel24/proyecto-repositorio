@@ -27,12 +27,14 @@ class PosgraduanteResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('matricula')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->unique('posgraduantes', 'matricula'),
                 Forms\Components\Select::make('persona_id')
                     ->required()
                     ->options(DatosPersonale::all()->pluck('full_name', 'id')) // Asumiendo que tienes un método para obtener full_name
                     ->searchable()
-                    ->preload(),
+                    ->preload()
+                    ->unique('posgraduantes', 'persona_id'),
 
 
 

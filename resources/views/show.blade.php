@@ -36,7 +36,14 @@
             <p><strong>Resumen:</strong> {{ $documento->resumen }}</p>
             <p><strong>Programa:</strong> {{ $documento->programa->nombre }}</p>
             <p><strong>Programa Posgrado:</strong> {{ $documento->tipo_programa }}</p>
-            <p><strong>Modalidad de Graduacion:</strong> {{ $documento->modalidad->nombre }}</p>
+            <p><strong>Autor(es):</strong>
+                @foreach ($documento->autores as $autor)
+                    {{ $autor->posgraduantes->datosPersonales->full_name ?? 'Desconocido' }}@if (!$loop->last)
+                        ,
+                    @endif
+                @endforeach
+            </p>
+            <p><strong>Tipo de Documento:</strong> {{ $documento->modalidad->nombre }}</p>
             <p><strong>Ciudad:</strong> {{ $documento->ciudad->nombre }}</p>
             <p><strong>Publicado el:</strong> {{ $documento->created_at }}</p>
 

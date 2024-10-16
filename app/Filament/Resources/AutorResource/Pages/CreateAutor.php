@@ -9,4 +9,8 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAutor extends CreateRecord
 {
     protected static string $resource = AutorResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return AutorResource::getUrl('index'); // Redirige al índice
+    }
 }
