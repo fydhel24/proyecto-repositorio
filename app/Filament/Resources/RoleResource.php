@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProgramaResource\Pages;
-use App\Filament\Resources\ProgramaResource\RelationManagers;
-use App\Models\Programa;
+use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,36 +13,22 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-
-class ProgramaResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Programa::class;
+    protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-c-academic-cap';
+    protected static ?string $navigationIcon = 'heroicon-c-qr-code';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nombre')
+                Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('version')
+                Forms\Components\TextInput::make('guard_name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('tipo_programa_id')
-                    ->required()
-                    ->relationship('tipoPrograma', 'nombre') // Asumiendoque quieres mostrar el nombre del profesor 
-                    ->searchable()
-                    ->preload()
-                    //->placeholder('Selecciona un profesor'),
-                    ->createOptionForm([
-                        Forms\Components\TextInput::make('nombre')
-                            ->required()
-                            ->maxLength(255),
-                    ])
-
-                    ->required()
             ]);
     }
 
@@ -50,13 +36,9 @@ class ProgramaResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nombre')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('version')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('tipoPrograma.nombre')
-                    ->label('Programa Posgrado')
-                    ->sortable()
+                Tables\Columns\TextColumn::make('guard_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -90,9 +72,9 @@ class ProgramaResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProgramas::route('/'),
-            'create' => Pages\CreatePrograma::route('/create'),
-            'edit' => Pages\EditPrograma::route('/{record}/edit'),
+            'index' => Pages\ListRoles::route('/'),
+            'create' => Pages\CreateRole::route('/create'),
+            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
 }
