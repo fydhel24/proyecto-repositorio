@@ -31,20 +31,28 @@
     <main class="container">
         <h2>Documentos Publicados</h2>
 
+        <!-- Formulario de búsqueda -->
+        <form method="GET" action="{{ route('home') }}">
+            <input type="text" name="search" placeholder="Buscar por título" value="{{ request('search') }}">
+            <button type="submit">Buscar</button>
+        </form>
+
         <div class="document-list">
             @foreach ($documentos as $documento)
                 <div class="document-item">
                     <h3><a href="{{ route('documento.show', $documento->id) }}">{{ $documento->titulo }}</a></h3>
                     <p>{{ $documento->resumen }}</p>
                     <p>Publicado el <b>{{ $documento->created_at->format('d/m/Y') }}</b></p>
+
                     <!-- Mostrar autores -->
-                    <p><strong>Autor(es):</strong>
+                    <p><strong>Autores:</strong>
                         @foreach ($documento->autores as $autor)
                             {{ $autor->posgraduantes->datosPersonales->full_name ?? 'Desconocido' }}@if (!$loop->last)
                                 ,
                             @endif
                         @endforeach
                     </p>
+
                     @if ($documento->respaldoDigital && $documento->respaldoDigital->archivo)
                         <a href="{{ asset('storage/' . $documento->respaldoDigital->archivo) }}" class="btn-download"
                             target="_blank">Descargar PDF</a>
@@ -54,6 +62,22 @@
                 </div>
             @endforeach
         </div>
+        <div class="document-list">
+            <div class="document-item">
+                <h3><a href="{{ route('diplomados') }}">DIPLOMADOS</a></h3>
+            </div>
+            <div class="document-item">
+                <h3><a href="{{ route('maestrias') }}">MAESTRÍAS</a></h3>
+            </div>
+            <div class="document-item">
+                <h3><a href="{{ route('doctorados') }}">DOCTORADOS</a></h3>
+            </div>
+            <div class="document-item">
+                <h3><a href="{{ route('posdoctorados') }}">POSDOCTORADOS</a></h3>
+            </div>
+        </div>
+
+
     </main>
 
     <!-- Pie de Página -->
