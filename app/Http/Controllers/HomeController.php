@@ -95,4 +95,58 @@ class HomeController extends Controller
 
         return view('maestrias', compact('documentos', 'search'));
     }
+    public function doctorados(Request $request)
+    {
+        $search = $request->input('search');
+
+        $documentos = Documento::with('autores.posgraduantes.datosPersonales')
+            ->whereHas('publicaciones', function ($query) {
+                $query->where('estado', 'publicado');
+            })
+            ->whereHas('programa', function ($query) {
+                $query->where('tipo_programa_id', 3); // ID para maestrías
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where('titulo', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('doctorados', compact('documentos', 'search'));
+    }
+    public function posdoctorados(Request $request)
+    {
+        $search = $request->input('search');
+
+        $documentos = Documento::with('autores.posgraduantes.datosPersonales')
+            ->whereHas('publicaciones', function ($query) {
+                $query->where('estado', 'publicado');
+            })
+            ->whereHas('programa', function ($query) {
+                $query->where('tipo_programa_id', 4); // ID para maestrías
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where('titulo', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('posdoctorados', compact('documentos', 'search'));
+    }
+    /* public function especialidades(Request $request)
+    {
+        $search = $request->input('search');
+
+        $documentos = Documento::with('autores.posgraduantes.datosPersonales')
+            ->whereHas('publicaciones', function ($query) {
+                $query->where('estado', 'publicado');
+            })
+            ->whereHas('programa', function ($query) {
+                $query->where('tipo_programa_id', 5); // ID para maestrías
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where('titulo', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('especialidades', compact('documentos', 'search'));
+    } */
 }

@@ -3,7 +3,7 @@
     <!-- main-area -->
     <main class="fix row">
         <section id="about" class="section-title">
-            <h3>MAESTRIAS</h3>
+            <h3>POSDOCTORADOS</h3>
             <div class="right-side">
                 <h3 class="section-title">Listar por título</h3>
                 <div class="letters">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="container">
                     <div class="search-bar">
-                        <form method="GET" action="{{ route('maestrias') }}">
+                        <form method="GET" action="{{ route('posdoctorados') }}">
                             <input type="text" name="search" placeholder="Buscar documento"
                                 value="{{ request('search') }}">
                             <button type="submit">Buscar</button>

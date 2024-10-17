@@ -16,4 +16,8 @@ class EditDocumento extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+    protected function getRedirectUrl(): string
+    {
+        return DocumentoResource::getUrl('index'); // Redirige al índice
+    }
 }

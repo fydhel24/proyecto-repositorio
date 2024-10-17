@@ -83,8 +83,8 @@ class AutorResource extends Resource
     {
         return [
             'index' => Pages\ListAutors::route('/'),
-            'create' => Pages\CreateAutor::route('/create'),
-            'edit' => Pages\EditAutor::route('/{record}/edit'),
+            //'create' => Pages\CreateAutor::route('/create'),
+            //'edit' => Pages\EditAutor::route('/{record}/edit'),
         ];
     }
 }

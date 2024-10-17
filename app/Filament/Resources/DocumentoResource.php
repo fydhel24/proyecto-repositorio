@@ -153,6 +153,7 @@ class DocumentoResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('publicar')
                     ->label(fn(Documento $record) => $record->publicaciones()->exists() ? 'Publicado' : 'Publicar')
@@ -209,8 +210,8 @@ class DocumentoResource extends Resource
     {
         return [
             'index' => Pages\ListDocumentos::route('/'),
-            'create' => Pages\CreateDocumento::route('/create'),
-            'edit' => Pages\EditDocumento::route('/{record}/edit'),
+            //'create' => Pages\CreateDocumento::route('/create'),
+            //'edit' => Pages\EditDocumento::route('/{record}/edit'),
         ];
     }
 }

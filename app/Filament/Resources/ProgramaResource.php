@@ -91,8 +91,8 @@ class ProgramaResource extends Resource
     {
         return [
             'index' => Pages\ListProgramas::route('/'),
-            'create' => Pages\CreatePrograma::route('/create'),
-            'edit' => Pages\EditPrograma::route('/{record}/edit'),
+            //'create' => Pages\CreatePrograma::route('/create'),
+            //'edit' => Pages\EditPrograma::route('/{record}/edit'),
         ];
     }
 }

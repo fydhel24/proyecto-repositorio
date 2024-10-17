@@ -92,8 +92,8 @@ class PosgraduanteResource extends Resource
     {
         return [
             'index' => Pages\ListPosgraduantes::route('/'),
-            'create' => Pages\CreatePosgraduante::route('/create'),
-            'edit' => Pages\EditPosgraduante::route('/{record}/edit'),
+            //'create' => Pages\CreatePosgraduante::route('/create'),
+            //'edit' => Pages\EditPosgraduante::route('/{record}/edit'),
         ];
     }
 }

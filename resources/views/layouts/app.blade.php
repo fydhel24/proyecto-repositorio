@@ -326,7 +326,7 @@
                             especialidades, maestrias, doctorados, posdoctorados.
                         </p>
                         <li class="header-btn" data-aos="fade-up" data-aos-delay="600">
-                            <a href="#" class="btn">Iniciar Sesión</a>
+                            <a href="{{ route('filament.admin.auth.login') }}" class="btn">Iniciar Sesión</a>
                         </li>
                     </div>
                     <div class="banner-shape">

@@ -44,6 +44,7 @@ class DatosPersonaleResource extends Resource
                 Forms\Components\DatePicker::make('fecha_nacimiento')
                     ->required(),
                 Forms\Components\Select::make('id_ciudad_registro')
+                    ->label('Ciudad de Registro')
                     ->required()
                     ->relationship('ciudad', 'nombre') // Asumiendoque quieres mostrar el nombre del profesor 
                     ->searchable()
@@ -55,6 +56,7 @@ class DatosPersonaleResource extends Resource
                             ->maxLength(255),
                     ]),
                 Forms\Components\Select::make('id_pais')
+                    ->label('Pais de Origen')
                     ->required()
                     ->relationship('pais', 'nombre') // Asumiendoque quieres mostrar el nombre del profesor 
                     ->searchable()
@@ -89,7 +91,7 @@ class DatosPersonaleResource extends Resource
                     ->label('Ciudad de Registro')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('pais.nombre')
-                    ->label('Pais')
+                    ->label('Pais de Origen')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -104,6 +106,7 @@ class DatosPersonaleResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -124,8 +127,8 @@ class DatosPersonaleResource extends Resource
     {
         return [
             'index' => Pages\ListDatosPersonales::route('/'),
-            'create' => Pages\CreateDatosPersonale::route('/create'),
-            'edit' => Pages\EditDatosPersonale::route('/{record}/edit'),
+            //'create' => Pages\CreateDatosPersonale::route('/create'),
+            //'edit' => Pages\EditDatosPersonale::route('/{record}/edit'),
         ];
     }
 }
