@@ -31,16 +31,10 @@ class HomeController extends Controller
             ->when($search, function ($query, $search) {
                 return $query->where('titulo', 'like', "%{$search}%");
             })
-            ->take(2) // Limitar a 2 documentos
+            ->take(10) // Limitar a 2 documentos
             ->get();
 
-        return view('main', compact('documentos', 'search', 'tiposPrograma'));
-    }
-    public function ver()
-    {
-        // Obtener el término de búsqueda
-        $documentos = Documento::all();
-        return view('main', compact('documentos'));
+        return view('home', compact('documentos', 'search', 'tiposPrograma'));
     }
     public function show($id)
     {

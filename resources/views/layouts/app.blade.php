@@ -69,7 +69,7 @@
                         <div class="tgmenu__wrap">
                             <nav class="tgmenu__nav">
                                 <div class="logo">
-                                    <a href="{{ route('main') }}">
+                                    <a href="#">
                                         <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" />
                                     </a>
                                 </div>
@@ -182,7 +182,7 @@
                             <nav class="tgmobile__menu-box">
                                 <div class="close-btn"><i class="fas fa-times"></i></div>
                                 <div class="nav-logo">
-                                    <a href="{{ route('main') }}"><img src="{{ asset('assets/img/logo/logo.png') }}"
+                                    <a href="#"><img src="{{ asset('assets/img/logo/logo.png') }}"
                                             alt="Logo" /></a>
                                 </div>
 
@@ -250,18 +250,14 @@
                                     </svg>
                                 </button>
                             </div>
-                            <form method="GET" action="{{ route('home') }}">
-                                <input type="text" name="search" placeholder="Buscar por título"
-                                    value="{{ request('search') }}">
-                                <button type="submit">Buscar</button>
-                            </form>
+
                             <div class="search__form">
-                                <form method="GET" action="{{ route('home') }}">
+                                <form action="#">
                                     <div class="search__input">
-                                        <input type="text" name="search" placeholder="Buscar por título"
-                                            value="{{ request('search') }}" />
+                                        <input class="search-input-field" type="text"
+                                            placeholder="Buscar en repositorio Posgrado" />
                                         <span class="search-focus-border"></span>
-                                        <button type="submit">
+                                        <button>
                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path

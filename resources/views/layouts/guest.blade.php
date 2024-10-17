@@ -73,7 +73,7 @@
                         <div class="tgmenu__wrap">
                             <nav class="tgmenu__nav">
                                 <div class="logo">
-                                    <a href="{{ route('main') }}">
+                                    <a href="">
                                         <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" />
                                     </a>
                                 </div>
@@ -196,7 +196,7 @@
                             <nav class="tgmobile__menu-box">
                                 <div class="close-btn"><i class="fas fa-times"></i></div>
                                 <div class="nav-logo">
-                                    <a href="{{ route('main') }}"><img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" /></a>
+                                    <a href=""><img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" /></a>
                                 </div>
 
                                 <div class="tgmobile__search">
@@ -354,7 +354,7 @@
 							<div class="breadcrumb__content">
 								<nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('main') }}">Inicio</a></li>
+                                        <li class="breadcrumb-item"><a href="">Inicio</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Diplomados</li>
                                     </ol>
 								</nav>
